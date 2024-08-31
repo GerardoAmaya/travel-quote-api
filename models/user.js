@@ -27,8 +27,8 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     status: {
-      type: DataTypes.STRING,
-      defaultValue: '1'
+      type: DataTypes.BOOLEAN,
+      defaultValue: 1
     },
     roleId: {
       type: DataTypes.INTEGER,

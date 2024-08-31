@@ -10,7 +10,6 @@ exports.authMiddleware = (req, res, next) => {
     }
 
     const token = authHeader.replace('Bearer ', '');
-    console.log('Token:', token);
 
     if (!token) {
         return res.status(401).json({ error: 'Access denied. No token provided.' });
@@ -21,7 +20,6 @@ exports.authMiddleware = (req, res, next) => {
         req.user = decoded;
         next();
     } catch (ex) {
-        console.log('JWT Error:', ex);
         res.status(400).json({ error: 'Invalid token.' });
     }
 };

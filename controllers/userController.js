@@ -2,8 +2,11 @@ const { User, Role } = require("../models");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { validationResult } = require('express-validator');
-const { registerValidation, loginValidation, updateUserValidation } = require('../validators/userValidator');
+const { registerValidation, loginValidation, updateUserValidation, validateUserId } = require('../validators/userValidator');
 
+/**
+ * Register a new user
+*/
 exports.register = [
     registerValidation,
     async (req, res) => {
@@ -22,6 +25,9 @@ exports.register = [
     }
 ];
 
+/**
+ * Login a user
+ */
 exports.login = [
     loginValidation,
     async (req, res) => {
@@ -53,7 +59,9 @@ exports.login = [
     }
 ];
 
-
+/**
+ * Get all users
+ */
 exports.getUsers = async (req, res) => {
     try {
         const users = await User.findAll({
@@ -69,24 +77,38 @@ exports.getUsers = async (req, res) => {
     }
 };
 
-exports.getUserById = async (req, res) => {
-    try {
-        const user = await User.findByPk(req.params.id, {
-            include: [{
-                model: Role,
-                as: 'role',
-                attributes: ['name', 'description']
-            }]
-        });
-        if (!user) {
-            return res.status(404).json({ error: "User not found" });
+/**
+ * Get a user by ID
+ */
+exports.getUserById = [
+    validateUserId,
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
         }
-        res.json(user);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
 
+        try {
+            const user = await User.findByPk(req.params.id, {
+                include: [{
+                    model: Role,
+                    as: 'role',
+                    attributes: ['name', 'description']
+                }]
+            });
+            if (!user) {
+                return res.status(404).json({ error: "User not found" });
+            }
+            res.json(user);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
+];
+
+/**
+ * Update a user by ID
+ */
 exports.updateUser = [
     updateUserValidation,
     async (req, res) => {
@@ -118,15 +140,24 @@ exports.updateUser = [
     }
 ];
 
+/**
+ * Deactivate a user by ID
+ */
 exports.deactivateUser = [
+    validateUserId,
     async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
         try {
             const user = await User.findByPk(req.params.id);
             if (!user) {
                 return res.status(404).json({ error: "User not found" });
             }
 
-            user.status = '0';
+            user.status = 0;
             await user.save();
 
             res.json({ message: "User deactivated successfully" });
@@ -136,15 +167,24 @@ exports.deactivateUser = [
     }
 ];
 
+/**
+ * Activate a user by ID
+ */
 exports.activateUser = [
+    validateUserId,
     async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
         try {
             const user = await User.findByPk(req.params.id);
             if (!user) {
                 return res.status(404).json({ error: "User not found" });
             }
 
-            user.status = '1';
+            user.status = 1;
             await user.save();
 
             res.json({ message: "User activated successfully" });
@@ -154,8 +194,17 @@ exports.activateUser = [
     }
 ];
 
+/**
+ * Delete a user by ID
+ */
 exports.deleteUser = [
+    validateUserId,
     async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
         try {
             const user = await User.findByPk(req.params.id);
             if (!user) {

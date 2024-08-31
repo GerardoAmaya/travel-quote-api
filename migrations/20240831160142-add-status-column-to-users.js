@@ -4,9 +4,9 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.addColumn('Users', 'status', {
-      type: Sequelize.STRING,
+      type: Sequelize.INTEGER,
       allowNull: false,
-      defaultValue: '1',
+      defaultValue: 1,
       after: 'roleId'
     });
   },
