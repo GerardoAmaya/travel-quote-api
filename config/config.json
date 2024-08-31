@@ -1,0 +1,10 @@
+{
+  "development": {
+    "username": "root",
+    "password": null,
+    "database": "travel_quotation_service",
+    "host": "127.0.0.1",
+    "port": "3306",
+    "dialect": "mysql"
+  }
+}
