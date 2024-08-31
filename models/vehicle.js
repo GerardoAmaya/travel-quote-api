@@ -10,11 +10,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        capacityStandard: {
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
-        capacityPremium: {
+        capacity: {
             type: DataTypes.INTEGER,
             allowNull: false
         },

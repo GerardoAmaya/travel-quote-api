@@ -13,11 +13,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      capacityStandard: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-      },
-      capacityPremium: {
+      capacity: {
         type: Sequelize.INTEGER,
         allowNull: false
       },

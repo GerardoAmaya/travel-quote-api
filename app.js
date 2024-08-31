@@ -6,10 +6,11 @@ const app = express();
 const userRoutes = require('./routes/userRoutes');
 const providerRoutes = require('./routes/providerRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
+const vehicleRoutes = require('./routes/vehicleRoutes');
 
 app.use(express.json());
 
-app.use('/api', userRoutes, providerRoutes, categoryRoutes);
+app.use('/api', userRoutes, providerRoutes, categoryRoutes, vehicleRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
