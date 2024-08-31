@@ -7,10 +7,17 @@ const userRoutes = require('./routes/userRoutes');
 const providerRoutes = require('./routes/providerRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
 const vehicleRoutes = require('./routes/vehicleRoutes');
+const placeRoutes = require('./routes/placeRoutes');
 
 app.use(express.json());
 
-app.use('/api', userRoutes, providerRoutes, categoryRoutes, vehicleRoutes);
+app.use('/api',
+    userRoutes,
+    providerRoutes,
+    categoryRoutes,
+    vehicleRoutes,
+    placeRoutes
+);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
