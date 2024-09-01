@@ -10,6 +10,7 @@ const vehicleRoutes = require('./routes/vehicleRoutes');
 const placeRoutes = require('./routes/placeRoutes');
 const coverageRoutes = require('./routes/coverageRoutes');
 const priceRoutes = require('./routes/priceRoutes');
+const quotationRoutes = require('./routes/quotationRoutes');
 
 app.use(express.json());
 
@@ -20,7 +21,8 @@ app.use('/api',
     vehicleRoutes,
     placeRoutes,
     coverageRoutes,
-    priceRoutes
+    priceRoutes,
+    quotationRoutes
 );
 
 const PORT = process.env.PORT || 3000;
