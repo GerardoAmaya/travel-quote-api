@@ -7,65 +7,49 @@ module.exports = {
         name: 'Bus dos pisos',
         capacity: 40,
         categoryId: 1, // ID of the "Standard" category
-        providerId: 1, // ID of the "PULLMAN BUS" provider
-        createdAt: new Date(),
-        updatedAt: new Date()
+        providerId: 1 // ID of the "PULLMAN BUS" provider
       },
       {
         name: 'Bus dos pisos',
         capacity: 8,
         categoryId: 2, // ID of the "Premium" category
-        providerId: 1, // ID of the "PULLMAN BUS" provider
-        createdAt: new Date(),
-        updatedAt: new Date()
+        providerId: 1 // ID of the "PULLMAN BUS" provider
       },
       {
         name: 'Bus ejecutivo',
         capacity: 32,
         categoryId: 1, // ID of the "Standard" category
-        providerId: 1, // ID of the "PULLMAN BUS" provider
-        createdAt: new Date(),
-        updatedAt: new Date()
+        providerId: 1 // ID of the "PULLMAN BUS" provider
       },
       {
         name: 'Bus ejecutivo',
         capacity: 10,
         categoryId: 2, // ID of the "Premium" category
-        providerId: 1, // ID of the "PULLMAN BUS" provider
-        createdAt: new Date(),
-        updatedAt: new Date()
+        providerId: 1 // ID of the "PULLMAN BUS" provider
       },
       {
         name: 'Minivan',
         capacity: 15,
         categoryId: 1, // ID of the "Standard" category
-        providerId: 2, // ID of the "TURBUS" provider
-        createdAt: new Date(),
-        updatedAt: new Date()
+        providerId: 2 // ID of the "TURBUS" provider
       },
       {
         name: 'Minivan',
         capacity: 4,
         categoryId: 2, // ID of the "Premium" category
-        providerId: 2, // ID of the "TURBUS" provider
-        createdAt: new Date(),
-        updatedAt: new Date()
+        providerId: 2 // ID of the "TURBUS" provider
       },
       {
         name: 'Autobús turístico',
         capacity: 50,
         categoryId: 1, // ID of the "Standard" category
-        providerId: 2, // ID of the "TURBUS" provider
-        createdAt: new Date(),
-        updatedAt: new Date()
+        providerId: 2 // ID of the "TURBUS" provider
       },
       {
         name: 'Autobús turístico',
         capacity: 10,
         categoryId: 2, // ID of the "Premium" category
-        providerId: 2, // ID of the "TURBUS" provider
-        createdAt: new Date(),
-        updatedAt: new Date()
+        providerId: 2 // ID of the "TURBUS" provider
       }
     ], {});
   },

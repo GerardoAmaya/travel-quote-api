@@ -7,17 +7,13 @@ module.exports = {
         coverageId: 1,
         startDate: '2024-09-01',
         endDate: '2024-09-30',
-        amount: 100.00,
-        createdAt: new Date(),
-        updatedAt: new Date()
+        amount: 100.00
       },
       {
         coverageId: 2,
         startDate: '2024-09-01',
         endDate: '2024-09-30',
-        amount: 80.00,
-        createdAt: new Date(),
-        updatedAt: new Date()
+        amount: 80.00
       },
     ], {});
   },

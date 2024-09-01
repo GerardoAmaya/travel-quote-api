@@ -9,9 +9,7 @@ module.exports = {
         vehicleId: 1,
         providerId: 1,
         startTime: '08:00:00',
-        durationHours: 5.5,
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        durationHours: 5.5
       },
       {
         originPlaceId: 2,
@@ -19,9 +17,7 @@ module.exports = {
         vehicleId: 1,
         providerId: 1,
         startTime: '09:00:00',
-        durationHours: 5.5,
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        durationHours: 5.5
       },
     ], {});
   },

@@ -2,14 +2,10 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert('Providers', [
       {
-        name: 'PULLMAN BUS',
-        createdAt: new Date(),
-        updatedAt: new Date()
+        name: 'PULLMAN BUS'
       },
       {
-        name: 'TURBUS',
-        createdAt: new Date(),
-        updatedAt: new Date()
+        name: 'TURBUS'
       }
     ], {});
   },

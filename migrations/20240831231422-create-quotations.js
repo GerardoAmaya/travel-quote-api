@@ -70,7 +70,7 @@ module.exports = {
       status: {
         type: Sequelize.STRING,
         allowNull: false,
-        defaultValue: 'created'
+        defaultValue: 'creada'
       },
       createdAt: {
         type: Sequelize.DATE,

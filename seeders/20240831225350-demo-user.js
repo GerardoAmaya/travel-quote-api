@@ -12,9 +12,21 @@ module.exports = {
         email: 'gerardoamayatest@gmail.com',
         password: hashedPassword,
         roleId: 1, // Admin
-        status: 1,
-        createdAt: new Date(),
-        updatedAt: new Date()
+        status: 1
+      },
+      {
+        name: 'User Test',
+        email: 'usertest@gmail.com',
+        password: hashedPassword,
+        roleId: 1, // Admin
+        status: 1
+      },
+      {
+        name: 'User Test 2',
+        email: 'usertest2@gmail.com',
+        password: hashedPassword,
+        roleId: 1, // Admin
+        status: 1
       }
     ], {});
   },
