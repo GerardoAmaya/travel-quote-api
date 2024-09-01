@@ -1,7 +1,7 @@
 // validators/quotationValidator.js
 const { check, param } = require('express-validator');
 const { Coverage, Price } = require('../models');
-const Quotation = require('../models/quotation');
+const moment = require('moment');
 
 /**
  * Validation rules for quotation creation
@@ -30,8 +30,25 @@ exports.createQuotationValidation = [
         })
 ];
 
+/**
+ * Validation rules for changing quotation status
+ */
 exports.changeQuotationStatusValidation = [
     check('status')
         .not().isEmpty().withMessage('Status is required')
         .isIn(['creada', 'reserva', 'reserva cancelada']).withMessage('Invalid status value'),
+];
+
+/**
+ * Validation rules for getting quotations by date range
+ */
+exports.getQuotationsByDateRangeValidation = [
+    check('startDate').isDate().withMessage('Start date must be a valid date'),
+    check('endDate').isDate().withMessage('End date must be a valid date')
+        .custom((value, { req }) => {
+            if (moment(value).isBefore(req.query.startDate)) {
+                throw new Error('End date must be after start date');
+            }
+            return true;
+        })
 ];

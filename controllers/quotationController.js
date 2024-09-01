@@ -2,7 +2,7 @@ const { Op } = require("sequelize");
 const { sequelize } = require("../models");
 const { Quotation, User, Place, Coverage, Price, Vehicle } = require("../models");
 const { validationResult } = require('express-validator');
-const { createQuotationValidation, changeQuotationStatusValidation} = require('../validators/quotationValidator');
+const { createQuotationValidation, changeQuotationStatusValidation, getQuotationsByDateRangeValidation } = require('../validators/quotationValidator');
 
 /**
  * Create a new quotation
@@ -110,6 +110,129 @@ exports.changeQuotationStatus = [
             await t.commit();
 
             res.json(quotation);
+        } catch (error) {
+            await t.rollback();
+            res.status(500).json({ error: error.message });
+        }
+    }
+];
+
+/**
+ * Get quotations for the logged-in user
+ */
+exports.getQuotationsForLoggedInUser = async (req, res) => {
+    try {
+        const userId = req.user.id;
+
+        const quotations = await Quotation.findAll({
+            where: {
+                userId: userId
+            },
+            include: [
+                {
+                    model: Place,
+                    as: 'originPlace',
+                    attributes: ['name']
+                },
+                {
+                    model: Place,
+                    as: 'destinationPlace',
+                    attributes: ['name']
+                },
+                {
+                    model: Coverage,
+                    attributes: ['startTime', 'durationHours']
+                },
+                {
+                    model: Price,
+                    attributes: ['amount']
+                }
+            ]
+        });
+
+        res.json(quotations);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+/**
+ * Get quotations within a date range
+ */
+exports.getQuotationsByDateRange = [
+    getQuotationsByDateRangeValidation,
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        try {
+            const { startDate, endDate } = req.query;
+
+            const quotations = await Quotation.findAll({
+                where: {
+                    date: {
+                        [Op.between]: [startDate, endDate]
+                    }
+                },
+                include: [
+                    {
+                        model: User,
+                        attributes: ['name', 'email']
+                    },
+                    {
+                        model: Place,
+                        as: 'originPlace',
+                        attributes: ['name']
+                    },
+                    {
+                        model: Place,
+                        as: 'destinationPlace',
+                        attributes: ['name']
+                    },
+                    {
+                        model: Coverage,
+                        attributes: ['startTime', 'durationHours']
+                    },
+                    {
+                        model: Price,
+                        attributes: ['amount']
+                    }
+                ]
+            });
+
+            res.json(quotations);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
+];
+
+/**
+ * Delete a quotation by ID
+ */
+exports.deleteQuotationById = [
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        const t = await sequelize.transaction();
+        try {
+            const { id } = req.params;
+
+            const quotation = await Quotation.findByPk(id, { transaction: t });
+            if (!quotation) {
+                await t.rollback();
+                return res.status(404).json({ error: "Quotation not found" });
+            }
+
+            await quotation.destroy({ transaction: t });
+            await t.commit();
+
+            res.json({ message: "Quotation deleted successfully" });
         } catch (error) {
             await t.rollback();
             res.status(500).json({ error: error.message });

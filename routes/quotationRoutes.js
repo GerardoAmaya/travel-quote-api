@@ -4,10 +4,9 @@ const quotationController = require('../controllers/quotationController');
 const { authMiddleware } = require('../middleware/authMiddleware');
 
 router.post('/quotations', authMiddleware, quotationController.createQuotation);
-// router.get('/quotations', authMiddleware, quotationController.getQuotations);
-// router.get('/quotations/:id', authMiddleware, quotationController.getQuotationById);
-// router.put('/quotations/:id', authMiddleware, quotationController.updateQuotation);
-// router.delete('/quotations/:id', authMiddleware, quotationController.deleteQuotation);
+router.delete('/quotations/:id', authMiddleware, quotationController.deleteQuotationById);
 router.put('/quotations/:id/status', authMiddleware, quotationController.changeQuotationStatus);
+router.get('/quotations/my-quotations', authMiddleware, quotationController.getQuotationsForLoggedInUser);
+router.get('/quotations/date-range', authMiddleware, quotationController.getQuotationsByDateRange);
 
 module.exports = router;
