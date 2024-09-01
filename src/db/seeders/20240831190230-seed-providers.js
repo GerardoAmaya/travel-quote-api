@@ -6,6 +6,24 @@ module.exports = {
       },
       {
         name: 'TURBUS'
+      },
+      {
+        name: 'SV BUS'
+      },
+      {
+        name: 'BUS VIANCA'
+      },
+      {
+        name: 'BUS JAC'
+      },
+      {
+        name: 'BUS DEL SUR'
+      },
+      {
+        name: 'BUS NORTE'
+      },
+      {
+        name: 'BUS CROMOSV'
       }
     ], {});
   },

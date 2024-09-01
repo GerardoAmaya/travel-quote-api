@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert('Vehicles', [
@@ -10,19 +8,19 @@ module.exports = {
         providerId: 1 // ID of the "PULLMAN BUS" provider
       },
       {
-        name: 'Bus dos pisos',
+        name: 'Bus dos pisos V3',
         capacity: 8,
         categoryId: 2, // ID of the "Premium" category
         providerId: 1 // ID of the "PULLMAN BUS" provider
       },
       {
-        name: 'Bus ejecutivo',
+        name: 'Bus ejecutivo V5',
         capacity: 32,
         categoryId: 1, // ID of the "Standard" category
         providerId: 1 // ID of the "PULLMAN BUS" provider
       },
       {
-        name: 'Bus ejecutivo',
+        name: 'Bus ejecutivo V6',
         capacity: 10,
         categoryId: 2, // ID of the "Premium" category
         providerId: 1 // ID of the "PULLMAN BUS" provider
@@ -34,19 +32,19 @@ module.exports = {
         providerId: 2 // ID of the "TURBUS" provider
       },
       {
-        name: 'Minivan',
+        name: 'Minivan V2',
         capacity: 4,
         categoryId: 2, // ID of the "Premium" category
         providerId: 2 // ID of the "TURBUS" provider
       },
       {
-        name: 'Autobús turístico',
+        name: 'Autobús turístico V2',
         capacity: 50,
         categoryId: 1, // ID of the "Standard" category
         providerId: 2 // ID of the "TURBUS" provider
       },
       {
-        name: 'Autobús turístico',
+        name: 'Autobús turístico V5',
         capacity: 10,
         categoryId: 2, // ID of the "Premium" category
         providerId: 2 // ID of the "TURBUS" provider

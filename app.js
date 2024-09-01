@@ -3,14 +3,14 @@ require('dotenv').config();
 
 const express = require('express');
 const app = express();
-const userRoutes = require('./routes/userRoutes');
-const providerRoutes = require('./routes/providerRoutes');
-const categoryRoutes = require('./routes/categoryRoutes');
-const vehicleRoutes = require('./routes/vehicleRoutes');
-const placeRoutes = require('./routes/placeRoutes');
-const coverageRoutes = require('./routes/coverageRoutes');
-const priceRoutes = require('./routes/priceRoutes');
-const quotationRoutes = require('./routes/quotationRoutes');
+const userRoutes = require('./src/routes/userRoutes');
+const providerRoutes = require('./src/routes/providerRoutes');
+const categoryRoutes = require('./src/routes/categoryRoutes');
+const vehicleRoutes = require('./src/routes/vehicleRoutes');
+const placeRoutes = require('./src/routes/placeRoutes');
+const coverageRoutes = require('./src/routes/coverageRoutes');
+const priceRoutes = require('./src/routes/priceRoutes');
+const quotationRoutes = require('./src/routes/quotationRoutes');
 
 app.use(express.json());
 
