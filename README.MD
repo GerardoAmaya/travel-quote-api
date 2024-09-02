@@ -39,7 +39,7 @@ The database schema consists of the following tables:
 
 ### Prerequisites
 
-- Node.js (v16+)
+- Node.js (It is included in the Docker container)
 - Docker
 - Docker Compose
 
