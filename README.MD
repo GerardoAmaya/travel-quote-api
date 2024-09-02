@@ -1,6 +1,6 @@
 # Travel Quotation API
-<div style="text-align: center;">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Node.js_logo.svg" alt="Node.js" style="max-width: 100%; height: auto; width: 200px;">
+<div style="display: flex; justify-content: center; align-items: center;">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Node.js_logo.svg" alt="Node.js" style="max-width: 100%; height: auto; width: 200px; margin-right: 10px;">
   <img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Expressjs.png" alt="Express" style="max-width: 100%; height: auto; width: 290px;">
 </div>
 
@@ -45,19 +45,18 @@ The database schema consists of the following tables:
 
    ```bash
    git clone https://github.com/GerardoAmaya/travel-quote-api.git
-   cd travel-quotation-api
    ```
 
-2. **Install dependencies:**
+2. **Navigate to the project directory:**
 
    ```bash
-    npm install
-    ```
+   cd travel-quote-api
+   ```
 
 3. **Build and run the Docker containers:**
 
    ```bash
-    docker-compose up -d
+    docker-compose up --build -d
    ```
 
 4. **Run the migrations and seeders:**
