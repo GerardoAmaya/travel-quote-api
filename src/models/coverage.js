@@ -38,6 +38,7 @@ module.exports = (sequelize, DataTypes) => {
         Coverage.belongsTo(models.Place, { as: 'destinationPlace', foreignKey: 'destinationPlaceId' });
         Coverage.belongsTo(models.Vehicle, { as: 'vehicle', foreignKey: 'vehicleId' });
         Coverage.belongsTo(models.Provider, { as: 'provider', foreignKey: 'providerId' });
+        Coverage.hasMany(models.Price, { as: 'prices', foreignKey: 'coverageId' });
     };
 
     return Coverage;

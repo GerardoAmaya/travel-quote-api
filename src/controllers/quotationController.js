@@ -19,43 +19,56 @@ exports.createQuotation = [
 
         const t = await sequelize.transaction();
         try {
-            const { userId, originPlaceId, destinationPlaceId, date, passengerCount, coverageId, priceId } = req.body;
+            const { userId, originPlaceId, destinationPlaceId, date, passengerCount } = req.body;
 
-            // Verify that the price is associated with the coverage
-            const validPrice = await Price.findOne({
-                where: {
-                    id: priceId,
-                    coverageId: coverageId,
-                    startDate: { [Op.lte]: date },
-                    endDate: { [Op.gte]: date }
-                },
-                transaction: t
-            });
+            const formattedDate = new Date(date);
 
-            if (!validPrice) {
-                await t.rollback();
-                return res.status(400).json({ error: "Price is not associated to Coverage!" });
-            }
-
-            // Create the quotation
+            // Create a new quotation with the provided details
             const quotation = await Quotation.create({
                 userId,
                 originPlaceId,
                 destinationPlaceId,
-                date,
+                date: formattedDate,
                 passengerCount,
-                coverageId,
-                priceId
+                status: 'creada'
             }, { transaction: t });
 
+            const coverages = await Coverage.findAll({
+                where: {
+                    originPlaceId,
+                    destinationPlaceId
+                },
+                include: [
+                    {
+                        model: Price,
+                        as: 'prices',
+                        where: {
+                            startDate: { [Op.lte]: formattedDate },
+                            endDate: { [Op.gte]: formattedDate }
+                        },
+                        attributes: ['id', 'amount']
+                    },
+                    {
+                        model: Vehicle,
+                        as: 'vehicle',
+                        attributes: ['name', 'capacity']
+                    }
+                ],
+                transaction: t
+            });
+
             await t.commit();
-            res.status(201).json(quotation);
+            res.status(201).json({
+                quotationId: quotation.id, // Return the ID of the created quotation
+                coverages // Return the available coverages for the quotation
+            });
         } catch (error) {
             await t.rollback();
             res.status(500).json({ error: error.message });
         }
     }
 ];
+
 
 /**
  * Change the status of a quotation
@@ -79,32 +92,79 @@ exports.changeQuotationStatus = [
                 return res.status(404).json({ error: "Quotation not found" });
             }
 
-            // Verify that the status transition is valid based on the current status
+            // Validations for status transitions
+            // We can't change the status of a canceled reservation
             if (quotation.status === 'reserva cancelada') {
                 await t.rollback();
                 return res.status(400).json({ error: "Cannot change status of a canceled reservation" });
             }
 
+            // We can't change the status from 'creada' to any other status except 'reserva'
             if (quotation.status === 'creada' && status !== 'reserva') {
                 await t.rollback();
                 return res.status(400).json({ error: "Invalid status transition from 'creada'" });
             }
 
+            // We can't change the status from 'reserva' to any other status except 'reserva cancelada'
             if (quotation.status === 'reserva' && status !== 'reserva cancelada') {
                 await t.rollback();
                 return res.status(400).json({ error: "Invalid status transition from 'reserva'" });
             }
 
-            // Update the quotation status if the transition is valid
-            quotation.status = status;
+            // If the status is changed to 'reserva', we need to check if there is enough capacity
+            if (status === 'reserva') {
+                const coverage = await Coverage.findByPk(coverageId, {
+                    include: [{
+                        model: Vehicle,
+                        as: 'vehicle',
+                        attributes: ['capacity']
+                    }],
+                    transaction: t
+                });
 
-            // Assign the coverage and price to the quotation if provided in the request
-            if (coverageId) {
+                if (!coverage) {
+                    await t.rollback();
+                    return res.status(404).json({ error: "Coverage not found" });
+                }
+
+                // Get the total number of passengers reserved for the coverage
+                const totalPassengersReserved = await Quotation.sum('passengerCount', {
+                    where: {
+                        coverageId: coverageId,
+                        status: 'reserva'
+                    },
+                    transaction: t
+                });
+
+                const remainingCapacity = coverage.vehicle.capacity - totalPassengersReserved;
+                if (quotation.passengerCount > remainingCapacity) {
+                    await t.rollback();
+                    return res.status(400).json({ error: "Not enough capacity for this reservation" });
+                }
+
+                // Fetch the price associated with the coverage
+                const price = await Price.findOne({
+                    where: {
+                        coverageId: coverageId,
+                        startDate: { [Op.lte]: quotation.date },
+                        endDate: { [Op.gte]: quotation.date }
+                    },
+                    transaction: t
+                });
+
+                if (!price) {
+                    await t.rollback();
+                    return res.status(404).json({ error: "Price not found for the selected coverage" });
+                }
+
+                // Update the quotation with the coverage and price IDs
                 quotation.coverageId = coverageId;
+                // This is the price that the user will pay for the reservation
+                quotation.priceId = price.id;
             }
-            if (priceId) {
-                quotation.priceId = priceId;
-            }
+
+            // Update the status of the quotation
+            quotation.status = status;
 
             await quotation.save({ transaction: t });
             await t.commit();
