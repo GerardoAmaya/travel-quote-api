@@ -6,7 +6,15 @@ const { Role } = require('../models');
  */
 exports.registerValidation = [
     check('name').not().isEmpty().withMessage('Name is required'),
-    check('email').isEmail().withMessage('Please provide a valid email address'),
+    check('email')
+        .isEmail().withMessage('Please provide a valid email address')
+        .custom(async (email) => {
+            const existingUser = await User.findOne({ where: { email } });
+            if (existingUser) {
+                throw new Error('Email already in use');
+            }
+            return true;
+        }),
     check('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long'),
 
     // Validating roleId

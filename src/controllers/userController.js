@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { validationResult } = require('express-validator');
 const { registerValidation, loginValidation, updateUserValidation, validateUserId } = require('../validators/userValidator');
+const { where } = require("sequelize");
 
 /**
  * Register a new user
@@ -65,6 +66,7 @@ exports.login = [
 exports.getUsers = async (req, res) => {
     try {
         const users = await User.findAll({
+            where: { status: 1 },
             include: [{
                 model: Role,
                 as: 'role',
@@ -89,7 +91,11 @@ exports.getUserById = [
         }
 
         try {
-            const user = await User.findByPk(req.params.id, {
+            const user = await User.findOne({
+                where: {
+                    id: req.params.id,
+                    status: 1
+                },
                 include: [{
                     model: Role,
                     as: 'role',
@@ -105,6 +111,7 @@ exports.getUserById = [
         }
     }
 ];
+
 
 /**
  * Update a user by ID

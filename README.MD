@@ -27,7 +27,7 @@ The Travel Quotation API is a RESTful service built with Node.js, Express, and S
 - **Sequelize** - Promise-based Node.js ORM.
 - **MySQL** - Relational database management system.
 - **Docker** - Containerization platform.
-- **Postman** - API development environment.
+- **Postman** - API development environment and documentation tool.
 
 ## Database Schema
 
@@ -57,30 +57,57 @@ The database schema consists of the following tables:
    cd travel-quote-api
    ```
 
-3. **Build and run the Docker containers:**
+3. **Build the Docker container:**
 
    ```bash
-    docker-compose up --build -d
+   docker-compose build
    ```
 
-4. **Run the migrations and seeders:**
+4. **Start the Docker container:**
+
+   ```bash
+   docker-compose up -d
+   ```
+
+5. **Run the migrations and seeders:**
 
     ```bash
     docker-compose exec app npm run db:setup
     ```
 
+6. **Connect to the MySQL database using a tool like DBeaver or MySQL Workbench:**
+
+   ```bash
+   HOST: localhost
+
+   PORT: 3308
+
+   DATABASE: travel_quotation_service
+
+   USER: root
+
+   PASSWORD: secret1234
+   ```
+
 ## API Endpoints
 
-Here you can test the API endpoints using Postman:
+Here you can find the Postman documentation with all the API endpoints and examples of how to use them.
+Also you can found the Postman collection in the `src/postman` folder.
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://documenter.getpostman.com/view/28143048/2sAXjM3BEA)
 
 ## Test Coverage
 
-Using newman, we have run the tests and generated a report with the results.
+The test coverage for the API is 100% for the controllers and services.
+
+If you want to run the tests, you can do it by running the following command:
+
+```bash
+   npm run test
+```
 
 <div style="text-align: center;">
-  <img src="./src/postman/test-coverage.jpeg" alt="Test Coverage" style="max-width: 100%; height: auto; width: 60%;">
+  <img src="./src/postman/test-coverage.jpeg" alt="Test Coverage" style="max-width: 100%; height: auto; width: 90%;">
 </div>
 
 

@@ -4,13 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "newman run src/postman/travel-quote-api.postman_collection.json",
     "start": "node app.js",
     "dev": "nodemon app.js",
     "migrate": "npx sequelize-cli db:migrate",
     "seed": "npx sequelize-cli db:seed:all",
-    "db:setup": "npm run migrate && npm run seed",
-    "test:postman": "newman run src/postman/travel-quote-api.postman_collection.json"
+    "db:setup": "npm run migrate && npm run seed"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +21,7 @@
     "express-validator": "^7.2.0",
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.11.0",
+    "newman": "^6.2.1",
     "sequelize": "^6.37.3"
   },
   "devDependencies": {
