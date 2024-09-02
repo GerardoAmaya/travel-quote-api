@@ -14,6 +14,11 @@ const quotationRoutes = require('./src/routes/quotationRoutes');
 
 app.use(express.json());
 
+// Routes
+app.get('/', (req, res) => {
+    res.send('API is running successfully!');
+});
+
 app.use('/api',
     userRoutes,
     providerRoutes,

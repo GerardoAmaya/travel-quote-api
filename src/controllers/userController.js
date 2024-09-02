@@ -17,7 +17,7 @@ exports.register = [
 
         try {
             const { name, email, password, roleId } = req.body;
-            const user = await User.create({ name, email, password, roleId, status: '1' });
+            const user = await User.create({ name, email, password, roleId, status: 1 });
             res.status(201).json(user);
         } catch (error) {
             res.status(500).json({ error: error.message });
