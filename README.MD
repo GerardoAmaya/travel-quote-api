@@ -1,7 +1,9 @@
 # Travel Quotation API
-<div style="display: flex; justify-content: center; align-items: center;">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Node.js_logo.svg" alt="Node.js" style="max-width: 100%; height: auto; width: 200px; margin-right: 10px;">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Expressjs.png" alt="Express" style="max-width: 100%; height: auto; width: 290px;">
+<div style="display: flex; justify-content: center; align-items: center; gap: 20px;">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Node.js_logo.svg" alt="Node.js" style="max-width: 100%; height: auto; width: 150px;">"
+  <img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Expressjs.png" alt="Express" style="max-width: 100%; height: auto; width: 150px;">
+   <img src="https://upload.wikimedia.org/wikipedia/commons/0/0a/MySQL_textlogo.svg" alt="MySQL" style="max-width: 100%; height: auto; width: 150px;">
+   <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Docker-svgrepo-com.svg" alt="Docker" style="max-width: 100%; height: auto; width: 150px;">
 </div>
 
 ## Introduction
