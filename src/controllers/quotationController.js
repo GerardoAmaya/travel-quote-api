@@ -57,10 +57,27 @@ exports.createQuotation = [
                 transaction: t
             });
 
+            if (coverages.length === 0) {
+                await t.rollback();
+                return res.status(400).json({ error: "No coverages available for the selected origin and destination" });
+            }
+
+            // We need to check if there is enough capacity for the reservation in any of the coverages
+            const coveragesWithCapacity = coverages.filter(coverage => {
+                const totalPassengersReserved = quotation.passengerCount;
+                const remainingCapacity = coverage.vehicle.capacity - totalPassengersReserved;
+                return remainingCapacity > 0;
+            });
+
+            if (coveragesWithCapacity.length === 0) {
+                await t.rollback();
+                return res.status(400).json({ error: "Not enough bus capacity for the reservation, please try again with a smaller number of passengers" });
+            }
+
             await t.commit();
             res.status(201).json({
                 quotationId: quotation.id, // Return the ID of the created quotation
-                coverages // Return the available coverages for the quotation
+                coverages: coveragesWithCapacity
             });
         } catch (error) {
             await t.rollback();
