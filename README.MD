@@ -1,4 +1,4 @@
-# Travel Quotation API
+# Travel Quote API
 
 <p align="center">
   <a href="https://nodejs.org/en" target="blank"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Node.js_logo.svg" width="200" alt="Node Logo" style="margin-right: 14px;" /></a>
