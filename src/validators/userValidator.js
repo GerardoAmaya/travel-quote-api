@@ -1,5 +1,5 @@
 const { check, param } = require('express-validator');
-const { Role } = require('../models');
+const { Role, User } = require('../models');
 
 /**
  * Validation rules for user registration
