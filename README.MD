@@ -1,10 +1,12 @@
 # Travel Quotation API
-<div style="display: flex; justify-content: center; align-items: center; gap: 20px;">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Node.js_logo.svg" alt="Node.js" style="max-width: 100%; height: auto; width: 150px;">"
-  <img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Expressjs.png" alt="Express" style="max-width: 100%; height: auto; width: 150px;">
-   <img src="https://upload.wikimedia.org/wikipedia/commons/0/0a/MySQL_textlogo.svg" alt="MySQL" style="max-width: 100%; height: auto; width: 150px;">
-   <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Docker-svgrepo-com.svg" alt="Docker" style="max-width: 100%; height: auto; width: 150px;">
-</div>
+
+<p align="center">
+  <a href="https://nodejs.org/en" target="blank"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Node.js_logo.svg" width="200" alt="Node Logo" style="margin-right: 14px;" /></a>
+  <a href="https://expressjs.com" target="blank"><img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Expressjs.png" width="200" alt="Express Logo" style="margin-right: 14px;" /></a>
+   <a href="https://www.mysql.com/" target="blank"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0a/MySQL_textlogo.svg" width="200" alt="MySql Logo" style="margin-right: 14px;" /></a>
+   <a href="https://www.docker.com" target="blank"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Docker-svgrepo-com.svg" width="200" alt="Docker Logo" style="margin-left: 10px;" /></a>
+</p>
+
 
 ## Introduction
 
